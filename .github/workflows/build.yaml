@@ -95,7 +95,7 @@ jobs:
       ### Using docker build
       - uses: actions/checkout@v5
         with:
-          repository: Tech-Vision-PLC/Techvision-LMS-Docker
+          repository: Tech-Vision-PLC/techvision-lms-docker
           path: builds
       - name: Normalize owner to lowercase
         run: echo "OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV
