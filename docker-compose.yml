@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
 
     restart: always
     networks:
@@ -16,7 +16,7 @@ services:
 
 
   configurator:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: "no"
     networks:
       - frappe_network
@@ -38,7 +38,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   migration:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: "no"
     depends_on:
       db:
@@ -123,7 +123,7 @@ services:
       - db-data:/var/lib/mysql
 
   frontend:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
     depends_on:
       - websocket
@@ -146,7 +146,7 @@ services:
       - "8080:8080"
 
   queue-short-1:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
     networks:
       - frappe_network
@@ -159,7 +159,7 @@ services:
       REDIS_QUEUE: ${REDIS_QUEUE}
 
   queue-short-2:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
     networks:
       - frappe_network
@@ -172,7 +172,7 @@ services:
       REDIS_QUEUE: ${REDIS_QUEUE}
 
   queue-default:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
     networks:
       - frappe_network
@@ -185,7 +185,7 @@ services:
       REDIS_QUEUE: ${REDIS_QUEUE}
 
   queue-long:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
     networks:
       - frappe_network
@@ -252,7 +252,7 @@ services:
 
 
   scheduler:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
     networks:
       - frappe_network
@@ -263,7 +263,7 @@ services:
 
 
   websocket:
-    image: ghcr.io/mehariwamlake/frappe-learning:latest
+    image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
     networks:
       - frappe_network
