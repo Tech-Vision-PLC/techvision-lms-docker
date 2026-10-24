@@ -126,7 +126,12 @@ services:
     image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
     depends_on:
-      - websocket
+      backend:
+        condition: service_started
+        required: true
+      websocket:
+        condition: service_started
+        required: true
     networks:
       - frappe_network
     command: ["nginx-entrypoint.sh"]
@@ -144,7 +149,25 @@ services:
       - logs:/home/frappe/frappe-bench/logs
     ports:
       - "8080:8080"
+    labels:
+      - "traefik.enable=true"
 
+      - "traefik.http.routers.frappe.rule=HostRegexp(`{host:.+}`)"
+
+      - "traefik.http.routers.frappe.entrypoints=websecure"
+
+      - "traefik.http.routers.frappe.tls.certresolver=myresolver"
+
+      - "traefik.http.services.frappe.loadbalancer.server.port=8080"
+
+    healthcheck:
+      test:
+        - CMD
+        - wait-for-it
+        - '0.0.0.0:8080'
+      interval: 2s
+      timeout: 30s
+      retries: 30
   queue-short-1:
     image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
     restart: always
