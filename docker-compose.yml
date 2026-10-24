@@ -282,7 +282,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
     networks:
-      - bench-network
+      - frappe_network
 
 volumes:
   db-data:
