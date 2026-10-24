@@ -264,24 +264,6 @@ services:
 
   websocket:
     image: ghcr.io/tech-vision-plc/techvision-lms-docker:latest
-    restart: always
-    networks:
-      - frappe_network
-    command: ["node", "/home/frappe/frappe-bench/apps/frappe/socketio.js"]
-    environment:
-        REDIS_CACHE: ${REDIS_CACHE}
-        REDIS_QUEUE: ${REDIS_QUEUE}
-        REDIS_SOCKETIO: ${REDIS_SOCKETIO}
-    volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
-    depends_on:
-      redis-queue:
-        condition: service_healthy
-      redis-cache:
-        condition: service_started
-      redis-socketio:
-        condition: service_started
     healthcheck:
       test:
         - CMD
@@ -290,8 +272,17 @@ services:
       interval: 2s
       timeout: 10s
       retries: 30
-    ports:
-    - "9000:9000"
+    command:
+      - node
+      - /home/frappe/frappe-bench/apps/frappe/socketio.js
+    depends_on:
+      configurator:
+        condition: service_completed_successfully
+        required: true
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+    networks:
+      - bench-network
 
 volumes:
   db-data:
