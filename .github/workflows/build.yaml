@@ -110,6 +110,9 @@ jobs:
             ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:${{ inputs.version || env.VERSION }}
             ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}:latest
 
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
 
           build-args: |
             "FRAPPE_PATH=${{ inputs.frappe-repo || env.FRAPPE_REPO }}"
